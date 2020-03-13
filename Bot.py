@@ -17,7 +17,7 @@ def full_path(rel_path):
     return os.path.join(os.path.dirname(__file__), rel_path)
 
 
-async def voting(message, channel, timeout=3600, vote_period=0.1):
+async def voting(message, channel, timeout=3600, vote_period=600):
     if message.channel.id == channel:
         await message.add_reaction("\U00002705")  # check
         await message.add_reaction("\U0001F1FD")  # x
@@ -127,7 +127,8 @@ async def delete(ctx):
         return
     if score > 0:
         await ctx.channel.send("Emoji: " + emoji.name + " has been deleted.")
-
+    else:
+        return
     await emoji.delete()
 
     if len(await ctx.message.guild.fetch_emojis()) <= 48:
